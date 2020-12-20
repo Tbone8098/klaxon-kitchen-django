@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="body-content">
+        <div class="row">
+            <div class="two columns dflex-col center">
+                <form action="/add_kitchen" method="POST">
+                    {% csrf_token %}
+                    {% if messages %}
+                        <ul>
+                            {% for message in messages %}
+                                <li>{{message}}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <input type="text" class="u-full-width" name="kitchen_name" id="kitchen_name" placeholder="Kitchen Name"/>
+                    <input type="text" name="designationId" id="designationId" placeholder="Designation Id"/>
+                    <button class="button-chief u-full-width">Create</button>
+                </form>
+
+                <hr/>
+                <ul>
+                    {% for kitchen in allKitchens %}
+                        <li>
+                            <a href="/kitchen/{{kitchen.id}}" class="button">{{kitchen.name}}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="eight columns dflex-col center">
+                <ul class="menuBar">
+                    <li>
+                        <a href="#" class="button">All Kitchens</a>
+                    </li>
+                    <li>
+                        <a href="#" class="button">All Orders</a>
+                    </li>
+                </ul>
+                <h3>Active Orders</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order No</th>
+                            <th>Kitchen</th>
+                            <th>Created</th>
+                            <th>Time Elapsed</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in allOrders %}
+                            <tr>
+                                <td>{{order.order_num}}</td>
+                                <td>{{order.kitchen.name}}</td>
+                                <td>{{order.created_at}}</td>
+                                <td>time elapsed</td>
+                                <td>
+                                    <a href="/update_order_status/{{order.id}}" class="button">{{order.status}}</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="two columns dflex-col center">
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{message}}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <form action="/add_order" method="POST">
+                    {% csrf_token %}
+                    <!-- <input type="text" name="orderNum" id="orderNum" placeholder="Order Number"> -->
+                    <select name="kitchen_id" id="kitchen" required="required">
+                        <option disabled="disabled" selected="selected" hidden="hidden" value="None">Pick a Kitchen</option>
+                        {% for kitchen in allKitchens %}
+                            <option value="{{kitchen.id}}">{{kitchen.name}}</option>
+                        {% endfor %}
+                    </select>
+                    <textarea name="notes" class="u-full-width" id="orderNotes" cols="30" rows="10" placeholder="Notes"></textarea>
+                    <button class="button-chief u-full-width">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
