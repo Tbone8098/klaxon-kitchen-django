@@ -32,7 +32,7 @@
                         <a href="#" class="button">All Kitchens</a>
                     </li>
                     <li>
-                        <a href="#" class="button">All Orders</a>
+                        <a href="/all_orders" class="button">All Orders</a>
                     </li>
                 </ul>
                 <h3>Active Orders</h3>
@@ -48,15 +48,17 @@
                     </thead>
                     <tbody>
                         {% for order in allOrders %}
-                            <tr>
-                                <td>{{order.order_num}}</td>
-                                <td>{{order.kitchen.name}}</td>
-                                <td>{{order.created_at}}</td>
-                                <td>time elapsed</td>
-                                <td>
-                                    <a href="/update_order_status/{{order.id}}" class="button">{{order.status}}</a>
-                                </td>
-                            </tr>
+                            {% if order.status != 'done' %}
+                                <tr>
+                                    <td>{{order.order_num}}</td>
+                                    <td>{{order.kitchen.name}}</td>
+                                    <td>{{order.created_at}}</td>
+                                    <td>time elapsed</td>
+                                    <td>
+                                        <a href="/update_order_status/{{order.id}}" class="button statBtn">{{order.status}}</a>
+                                    </td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
                     </tbody>
                 </table>
@@ -72,14 +74,14 @@
                 <form action="/add_order" method="POST">
                     {% csrf_token %}
                     <!-- <input type="text" name="orderNum" id="orderNum" placeholder="Order Number"> -->
-                    <select name="kitchen_id" id="kitchen" required="required">
+                    <select name="kitchen_id" id="kitchenOption" value="aaa">
                         <option disabled="disabled" selected="selected" hidden="hidden" value="None">Pick a Kitchen</option>
                         {% for kitchen in allKitchens %}
                             <option value="{{kitchen.id}}">{{kitchen.name}}</option>
                         {% endfor %}
                     </select>
                     <textarea name="notes" class="u-full-width" id="orderNotes" cols="30" rows="10" placeholder="Notes"></textarea>
-                    <button class="button-chief u-full-width">Create</button>
+                    <button class="button-chief u-full-width orderFormBtn disabled" disabled>Create</button>
                 </form>
             </div>
         </div>

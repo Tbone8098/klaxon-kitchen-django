@@ -76,3 +76,23 @@ hr {
     color: black;
     box-shadow: 2px 2px 4px black;
 }
+
+.stat-in-progress {
+    background: #f8b232;
+    color: black;
+}
+
+.stat-ready {
+    background: #39a634;
+    color: black;
+}
+
+.disabled {
+    background: rgba(202, 202, 202, 0.719);
+}
+
+.disabled:hover{
+    background: rgba(202, 202, 202, 0.719);
+    color: white;
+    box-shadow: 0 0 0 ;
+}
