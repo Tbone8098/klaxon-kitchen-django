@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="body-content">
+        <div class="row">
+            <h1>All Orders</h1>
+        </div>
+        <div class="row">
+            <table class="u-full-width">
+                <thead>
+                    <tr>
+                        <th>Order No</th>
+                        <th>Kitchen</th>
+                        <th>Created</th>
+                        <th>Time Elapsed</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in allOrders %}
+                        <tr>
+                            <td>{{order.order_num}}</td>
+                            <td>{{order.kitchen.name}}</td>
+                            <td>{{order.created_at}}</td>
+                            <td>time elapsed</td>
+                            <td>
+                                <a href="/update_order_status/{{order.id}}" class="button statBtn">{{order.status}}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

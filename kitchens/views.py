@@ -37,7 +37,7 @@ def add_order(request):
     count =  kitchen.daily_order_count + 1
     orderNum = f"{kitchen.designation_id}-{dateFormatted}-{count}"
     notes = request.POST['notes']
-    status = "In Progress"
+    status = "in progress"
 
 
     Order.objects.create(
@@ -59,8 +59,22 @@ def kitchenDashboard(request, kitchen_id):
     return render(request, 'kitchenDashboard.html', context)
 
 def update_order_status(request, order_id):
-    const statuses = ["in progress", "ready", "done"]
+    statuses = ["in progress", "ready", "done"]
     
     order = Order.objects.get(id=order_id)
+    currentStatus = order.status.lower()
+
+    if statuses.index(currentStatus) + 1 == len(statuses):
+        nextStatus = 0
+    else:
+        nextStatus = statuses.index(currentStatus) + 1
+    order.status = statuses[nextStatus]
+    order.save()
 
     return redirect('/')
+
+def all_orders(request):
+    context = {
+        'allOrders': Order.objects.all()
+    }
+    return render(request, 'allOrders.html', context)
