@@ -9,4 +9,5 @@ urlpatterns = [
     path('kitchen/<int:kitchen_id>', views.kitchenDashboard),
     path('update_order_status/<int:order_id>', views.update_order_status),
     path('all_orders', views.all_orders),
+    path('display_screen', views.display_screen),
 ]

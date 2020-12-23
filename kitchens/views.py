@@ -70,7 +70,6 @@ def update_order_status(request, order_id):
         nextStatus = statuses.index(currentStatus) + 1
     order.status = statuses[nextStatus]
     order.save()
-
     return redirect('/')
 
 def all_orders(request):
@@ -78,3 +77,9 @@ def all_orders(request):
         'allOrders': Order.objects.all()
     }
     return render(request, 'allOrders.html', context)
+
+def display_screen(request):
+    context = {
+        'allOrders': Order.objects.all()
+    }
+    return render(request, 'displayScreen.html', context)

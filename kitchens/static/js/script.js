@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    localStorage.setItem("needsReload", true);
     // changes the background of the status btns by adding or removing a class
     var statBtnArr = $(".statBtn");
     for (let i = 0; i < statBtnArr.length; i++) {
@@ -24,4 +25,9 @@ $(document).ready(function () {
         $(".orderFormBtn").removeClass("disabled");
         $(".orderFormBtn").removeAttr("disabled");
     });
+
+    // $(".statBtn").on("click", function (e) {
+    //     // e.preventDefault();
+    //     console.log("change storage to true");
+    // });
 });
