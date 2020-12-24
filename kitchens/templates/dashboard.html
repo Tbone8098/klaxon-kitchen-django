@@ -2,13 +2,13 @@
 {% block content %}
     <div class="body-content">
         <div class="row">
-            <div class="two columns dflex-col center">
+            <div class="three columns dflex-col center left-col">
                 <form action="/add_kitchen" method="POST">
                     {% csrf_token %}
                     {% if messages %}
                         <ul>
                             {% for message in messages %}
-                                <li>{{message}}</li>
+                                <li>{{ message }}</li>
                             {% endfor %}
                         </ul>
                     {% endif %}
@@ -21,12 +21,13 @@
                 <ul>
                     {% for kitchen in allKitchens %}
                         <li>
-                            <a href="/kitchen/{{kitchen.id}}" class="button">{{kitchen.name}}</a>
+                            <a href="/kitchen/{{ kitchen.id }}" class="button">{{ kitchen.name }}</a>
                         </li>
                     {% endfor %}
                 </ul>
+
             </div>
-            <div class="eight columns dflex-col center">
+            <div class="six columns dflex-col center">
                 <ul class="menuBar">
                     <li>
                         <a href="/display_screen" class="button yellow" target="_blank">Launch Display</a>
@@ -50,12 +51,16 @@
                         {% for order in allOrders %}
                             {% if order.status != 'done' %}
                                 <tr>
-                                    <td>{{order.order_num}}</td>
-                                    <td>{{order.kitchen.name}}</td>
-                                    <td>{{order.created_at}}</td>
-                                    <td>time elapsed</td>
+                                    <td>{{ order.order_num }}</td>
+                                    <td>{{ order.kitchen.name }}</td>
                                     <td>
-                                        <a href="/update_order_status/{{order.id}}" class="button statBtn">{{order.status}}</a>
+                                        <span class="time_created" data-timeInSeconds="{{ order.created_at.timestamp }}" ">{{ order.created_at }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="time_elapsed"></span>
+                                    </td>
+                                    <td>
+                                        <a href="/update_order_status/{{ order.id }}" class="button statBtn">{{ order.status }}</a>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -63,11 +68,11 @@
                     </tbody>
                 </table>
             </div>
-            <div class="two columns dflex-col center">
+            <div class="three columns dflex-col center right-col">
                 {% if messages %}
                     <ul>
                         {% for message in messages %}
-                            <li>{{message}}</li>
+                            <li>{{ message }}</li>
                         {% endfor %}
                     </ul>
                 {% endif %}
@@ -77,11 +82,16 @@
                     <select name="kitchen_id" id="kitchenOption" value="aaa">
                         <option disabled="disabled" selected="selected" hidden="hidden" value="None">Pick a Kitchen</option>
                         {% for kitchen in allKitchens %}
-                            <option value="{{kitchen.id}}">{{kitchen.name}}</option>
+                            <option value="{{ kitchen.id }}">{{ kitchen.name }}</option>
                         {% endfor %}
                     </select>
                     <textarea name="notes" class="u-full-width" id="orderNotes" cols="30" rows="10" placeholder="Notes"></textarea>
                     <button class="button-chief u-full-width orderFormBtn disabled" disabled>Create</button>
+                </form>
+                <hr/>
+                <form class="myFilter-col">
+                    {{ myFilter.form }}
+                    <button>Search</button>
                 </form>
             </div>
         </div>

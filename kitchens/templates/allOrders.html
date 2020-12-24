@@ -1,10 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="body-content">
-        <div class="row">
+        <div class="row dflex center justify-evenly">
             <h1>All Orders</h1>
+            <div class="btns">
+
+                <a class="button ml-3" href="export_orders">Export Orders</a>
+                <a class="button ml-3" href="export_kitchens">Export Kitchens</a>
+            </div>
         </div>
+        <hr/>
         <div class="row">
+            <form class="myFilter-row">
+                {{ myFilter.form }}
+                <button>Search</button>
+            </form>
             <table class="u-full-width">
                 <thead>
                     <tr>
@@ -13,17 +23,27 @@
                         <th>Created</th>
                         <th>Time Elapsed</th>
                         <th>Status</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for order in allOrders %}
                         <tr>
-                            <td>{{order.order_num}}</td>
-                            <td>{{order.kitchen.name}}</td>
-                            <td>{{order.created_at}}</td>
-                            <td>time elapsed</td>
+                            <td>{{ order.order_num }}</td>
+                            <td>{{ order.kitchen.name }}</td>
                             <td>
-                                <a href="/update_order_status/{{order.id}}" class="button statBtn">{{order.status}}</a>
+                                <span class="time_created" data-timeInSeconds="{{ order.created_at.timestamp }}" ">{{ order.created_at }}</span>
+                            </td>
+                            <td>
+                                <span class="time_elapsed"></span>
+                            </td>
+                            <td>
+                                <a href="/update_order_status/{{ order.id }}" class="button statBtn">{{ order.status }}</a>
+                            </td>
+                            <td>
+                                <a href="#">Edit</a>
+                                |
+                                <a href="/delete_order/{{ order.id }}">Delete</a>
                             </td>
                         </tr>
                     {% endfor %}

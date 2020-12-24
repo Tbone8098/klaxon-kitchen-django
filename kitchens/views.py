@@ -1,13 +1,23 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.contrib import messages
-import datetime
+from .filters import OrderFilter
 from kitchens.models import *
+import datetime
+import csv
 
 # Create your views here.
 def dashboard(request):
+    allKitchens = Kitchen.objects.all()
+    allOrders = Order.objects.order_by("-id").all()
+
+    myFilter = OrderFilter(request.GET, queryset=allOrders)
+    allOrders = myFilter.qs
+
     context = {
-        'allKitchens': Kitchen.objects.all(),
-        'allOrders': Order.objects.all(),
+        'allKitchens': allKitchens,
+        'allOrders': allOrders,
+        'myFilter': myFilter
     }
     return render(request, 'dashboard.html', context)
 
@@ -26,12 +36,6 @@ def add_kitchen(request):
     return redirect("/")
 
 def add_order(request):    
-    # errors = Order.objects.order_validator(request.POST)
-
-    # if len(errors) > 0:
-    #     for key, value in errors.items():
-    #         messages.error(request, value)
-    # else:
     kitchen = Kitchen.objects.get(id=request.POST['kitchen_id'])
     dateFormatted = datetime.datetime.today().strftime("%Y%m%d")
     count =  kitchen.daily_order_count + 1
@@ -53,8 +57,12 @@ def add_order(request):
     return redirect('/')
 
 def kitchenDashboard(request, kitchen_id):
+    kitchen = Kitchen.objects.order_by("-id").get(id=kitchen_id)
+    allOrders = Order.objects.order_by("-id").all()
+
     context = {
-        'kitchen': Kitchen.objects.get(id=kitchen_id)
+        'kitchen': kitchen,
+        'allOrders': allOrders
     }
     return render(request, 'kitchenDashboard.html', context)
 
@@ -73,8 +81,14 @@ def update_order_status(request, order_id):
     return redirect('/')
 
 def all_orders(request):
+    all_orders = Order.objects.order_by('-id').all()
+
+    myFilter = OrderFilter(request.GET, queryset=all_orders)
+    all_orders = myFilter.qs
+
     context = {
-        'allOrders': Order.objects.all()
+        'allOrders': all_orders,
+        'myFilter': myFilter
     }
     return render(request, 'allOrders.html', context)
 
@@ -83,3 +97,40 @@ def display_screen(request):
         'allOrders': Order.objects.all()
     }
     return render(request, 'displayScreen.html', context)
+
+def export_orders(request):
+    response = HttpResponse(content_type='text/csv')
+
+    writer = csv.writer(response)
+    writer.writerow(['order_num', 'notes', 'status', 'kitchen', 'created_at', 'updated_at'])
+
+    all_orders = Order.objects.order_by('-id').all()
+    myFilter = OrderFilter(request.GET, queryset=all_orders)
+    all_orders = myFilter.qs
+
+
+    for order in all_orders.values_list('order_num', 'notes', 'status', 'kitchen', 'created_at', 'updated_at'):
+        writer.writerow(order)
+
+    response['Content-Disposition'] = 'attachment; filename="Orders.csv"'
+
+    return HttpResponse(all_orders)
+
+def export_kitchens(request):
+    response = HttpResponse(content_type='text/csv')
+
+    writer = csv.writer(response)
+    writer.writerow(['name', 'designation_id', 'daily_counter', 'created_at', 'updated_at'])
+
+    for order in Order.objects.all().values_list('order_num', 'notes', 'status', 'kitchen', 'created_at', 'updated_at'):
+        writer.writerow(order)
+
+    response['Content-Disposition'] = 'attachment; filename="Kitchens.csv"'
+
+    return response
+
+def delete_order(request, order_id):
+    order = Order.objects.get(id=order_id)
+    order.delete()
+
+    return redirect('/all_orders')

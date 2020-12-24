@@ -3,8 +3,38 @@
     <div class="body-content">
         <div class="row dflex center">
             <div class="row u-full-width header">
-                <h1 class="dflex center">{{kitchen.name}}</h1>
+                <h1 class="dflex center">{{ kitchen.name }}</h1>
             </div>
+        </div>
+        <div class="row">
+            <table class="u-full-width displayTables">
+                <thead>
+                    <tr>
+                        <th>Order No</th>
+                        <th>Notes</th>
+                        <th>Created</th>
+                        <th>Updated at</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in allOrders %}
+                        {% if order.kitchen.id == kitchen.id %}
+                            <tr>
+                                <td>{{ order.order_num }}</td>
+                                <td>{{ order.notes }}</td>
+                                <td>
+                                    <span class="time_created" data-timeInSeconds="{{ order.created_at.timestamp }}" ">{{ order.created_at }}</span>
+                                </td>
+                                <td>
+                                    {{ order.updated_at }}
+                                </td>
+                                <td>{{ order.status }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock %}
