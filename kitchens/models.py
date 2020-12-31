@@ -6,7 +6,7 @@ class KitchenManager(models.Manager):
         errors = {}
         if Kitchen.objects.filter(name=postData['kitchen_name']):
             errors['nameExistenceError'] = "That Kitchen name already exists"
-        if len(postData['kitchen_name']) < 8:
+        if len(postData['kitchen_name']) < 3:
             errors['nameLenError'] = "The Name of the Kitchen needs to be at least 8 characters"
         if Kitchen.objects.filter(designation_id=postData['designationId']):
             errors['desigExistenceError'] = "That Designation already exists"
@@ -14,15 +14,12 @@ class KitchenManager(models.Manager):
         return errors
 
 class OrderManager(models.Manager):
-    def order_validator(self, postData):
+    def Order_validator(self, postData):
         errors = {}
-        # if postData['orderNum'] == None:
-        #     errors['orderNumError'] = "Must enter a Order Number"
-        # if postData['kitchen_name'] == None:
-        #     errors['kitchenChoiceError'] = "Must select a Kitchen"
+        if len(postData['orderNum']) < 1:
+            errors['orderNumLenError'] = "You must enter an order number"
         
         return errors
-
 
 
 class Kitchen(models.Model):
@@ -34,6 +31,7 @@ class Kitchen(models.Model):
     objects = KitchenManager()
 
 class Order(models.Model):
+    ticket_num = models.CharField(max_length=255, default="0000")
     order_num = models.CharField(max_length=255)
     notes = models.TextField()
     status = models.CharField(max_length=255)

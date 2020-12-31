@@ -1,7 +1,11 @@
 {% block nav %}
-<div class="navbar">
-    <a href="/"><img src="../static/img/Klaxon-Logo-Web-White.png" alt="Klaxon logo"></a>
-    <h1>Klaxon Kitchen</h1>
-    <button class="button-chief">Logout</button>
-</div>
-{% endblock%}
+    <div class="navbar">
+        <a href="{% url 'klaxonKitchen:home' %}">
+            <img src="../static/img/Klaxon-Logo-Web-White.png" alt="Klaxon logo"/></a>
+        <h1>Klaxon Kitchen</h1>
+        <div class="btns">
+            <a class="button button-chief" href="{% url 'klaxonKitchen:settings' %}">Settings</a>
+            <a class="button button-chief" href="{% url 'login:logout' %}">Logout</a>
+        </div>
+    </div>
+{% endblock %}

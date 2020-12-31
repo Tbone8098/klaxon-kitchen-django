@@ -1,12 +1,13 @@
 import django_filters
-from django_filters import DateFilter
+from django_filters import DateFilter, CharFilter
 
 from .models import *
 
 class OrderFilter(django_filters.FilterSet):
 
-    order_num = django_filters.CharFilter(label='Order Number')
+    ticket_num = CharFilter(label='Ticket Number', lookup_expr="icontains")
+    order_num = CharFilter(label='Order Number', lookup_expr="icontains")
 
     class Meta:
         model = Order
-        fields = ['order_num', 'kitchen']
+        fields = ['ticket_num','order_num', 'kitchen']

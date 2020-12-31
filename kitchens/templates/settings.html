@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="body-content settings">
+        <h1>Settings</h1>
+        <div class="card">
+
+            <form action="{% url 'klaxonKitchen:add_kitchen' %}" method="POST">
+                {% csrf_token %}
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <input type="text" class="u-full-width" name="kitchen_name" id="kitchen_name" placeholder="Kitchen Name"/>
+                <input type="text" name="designationId" id="designationId" placeholder="Designation Id"/>
+                <button class="button-chief">Create</button>
+            </form>
+        </div>
+        <div class="card">
+            <div class="dflex justify-evenly center text-red">
+                <a class="button button-chief" href="{% url 'login:delete' activeUser.id %}">Delete User</a>
+                <h5>Warning this cannot be undone</h5>
+            </div>
+        </div>
+    </div>
+{% endblock %}

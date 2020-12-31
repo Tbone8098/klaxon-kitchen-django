@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <body>
+        <div class="body-content settings">
+            <div class="card">
+                <h1>Are you sure you want to delete this user?</h1>
+                <div class="btns dflex justify-center">
+                    <a class="button button-chief mr-3" href="/delete_user/{{ user_id }}/confirm">Yes</a>
+                    <a class="button ml-3" href="{% url 'klaxonKitchen:settings' %}">No</a>
+                </div>
+            </div>
+        </div>
+    </body>
+
+{% endblock %}

@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from .filters import OrderFilter
 from kitchens.models import *
+from login.models import *
 import datetime
 import csv
 
@@ -33,28 +34,36 @@ def add_kitchen(request):
             name=request.POST['kitchen_name'],
             designation_id=request.POST['designationId']
             )
-    return redirect("/")
+    return redirect('klaxonKitchen:home')
 
-def add_order(request):    
-    kitchen = Kitchen.objects.get(id=request.POST['kitchen_id'])
-    dateFormatted = datetime.datetime.today().strftime("%Y%m%d")
-    count =  kitchen.daily_order_count + 1
-    orderNum = f"{kitchen.designation_id}-{dateFormatted}-{count}"
-    notes = request.POST['notes']
-    status = "in progress"
+def add_order(request):  
+    errors = Order.objects.Order_validator(request.POST)  
+
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+    else:
+        kitchen = Kitchen.objects.get(id=request.POST['kitchen_id'])
+        dateFormatted = datetime.datetime.today().strftime("%Y%m%d")
+        count =  kitchen.daily_order_count + 1
+        ticketNum = f"{kitchen.designation_id}-{dateFormatted}-{count}"
+        orderNum = request.POST['orderNum']
+        notes = request.POST['notes']
+        status = "in progress"
 
 
-    Order.objects.create(
-        order_num=orderNum, 
-        kitchen=kitchen,
-        notes = notes,
-        status = status
-        )
+        Order.objects.create(
+            ticket_num=ticketNum,
+            order_num=orderNum, 
+            kitchen=kitchen,
+            notes = notes,
+            status = status
+            )
 
-    kitchen.daily_order_count += 1
-    kitchen.save()
+        kitchen.daily_order_count += 1
+        kitchen.save()
 
-    return redirect('/')
+    return redirect('klaxonKitchen:home')
 
 def kitchenDashboard(request, kitchen_id):
     kitchen = Kitchen.objects.order_by("-id").get(id=kitchen_id)
@@ -78,7 +87,7 @@ def update_order_status(request, order_id):
         nextStatus = statuses.index(currentStatus) + 1
     order.status = statuses[nextStatus]
     order.save()
-    return redirect('/')
+    return redirect('klaxonKitchen:home')
 
 def all_orders(request):
     all_orders = Order.objects.order_by('-id').all()
@@ -133,4 +142,14 @@ def delete_order(request, order_id):
     order = Order.objects.get(id=order_id)
     order.delete()
 
-    return redirect('/all_orders')
+    return redirect('klaxonKitchen:all_orders')
+
+def reset_counter_all(request):
+    all_kitchens = Kitchen.objects.all()
+    for kitchen in all_kitchens:
+        kitchen.daily_order_count = 0
+        kitchen.save()
+    return redirect('klaxonKitchen:home')
+
+def settings(request):
+    return render(request, 'settings.html')

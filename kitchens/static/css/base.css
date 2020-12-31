@@ -40,6 +40,14 @@ hr {
     margin-top: 2em;
 }
 
+.settings {
+    margin: auto;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    width: 50%;
+}
+
 .displayBox {
     padding: 0 2em;
     min-height: 75vh;
@@ -48,6 +56,15 @@ hr {
 .displayBox h3{
     margin-top: 1em;
     text-align: center;
+}
+
+.card {
+    margin: 1em;
+    padding: 1em;
+    width: 100%;
+    /* border: 1px solid black;     */
+    border-radius: 10px;
+    box-shadow: 2px 2px 6px #ae0f0a ;
 }
 
 .myFilter-row {
@@ -334,4 +351,21 @@ hr {
 
 .white{
     background: white;
+}
+
+/* colors - text */
+.text-yellow{
+    color: #f8b232;
+}
+
+.text-red{
+    color: #ae0f0a;
+}
+
+.text-green{
+    color: #39a634;
+}
+
+.text-white{
+    color: white;
 }

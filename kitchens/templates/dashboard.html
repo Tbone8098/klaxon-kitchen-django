@@ -3,25 +3,11 @@
     <div class="body-content">
         <div class="row">
             <div class="three columns dflex-col center left-col">
-                <form action="/add_kitchen" method="POST">
-                    {% csrf_token %}
-                    {% if messages %}
-                        <ul>
-                            {% for message in messages %}
-                                <li>{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                    <input type="text" class="u-full-width" name="kitchen_name" id="kitchen_name" placeholder="Kitchen Name"/>
-                    <input type="text" name="designationId" id="designationId" placeholder="Designation Id"/>
-                    <button class="button-chief u-full-width">Create</button>
-                </form>
-
-                <hr/>
+                <h3>All Kitchens</h3>
                 <ul>
                     {% for kitchen in allKitchens %}
                         <li>
-                            <a href="/kitchen/{{ kitchen.id }}" class="button">{{ kitchen.name }}</a>
+                            <a href="{% url 'klaxonKitchen:kitchen' kitchen.id %}" class="button">{{ kitchen.name }}</a>
                         </li>
                     {% endfor %}
                 </ul>
@@ -30,16 +16,20 @@
             <div class="six columns dflex-col center">
                 <ul class="menuBar">
                     <li>
-                        <a href="/display_screen" class="button yellow" target="_blank">Launch Display</a>
+                        <a href="{% url 'klaxonKitchen:display_screen' %}" class="button yellow" target="_blank">Launch Display</a>
                     </li>
                     <li>
-                        <a href="/all_orders" class="button">All Orders</a>
+                        <a href="{% url 'klaxonKitchen:all_orders' %}" class="button">All Orders</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'klaxonKitchen:all_orders' %}" class="button">Reset Counters</a>
                     </li>
                 </ul>
                 <h3>Active Orders</h3>
                 <table>
                     <thead>
                         <tr>
+                            <th>Ticket No</th>
                             <th>Order No</th>
                             <th>Kitchen</th>
                             <th>Created</th>
@@ -51,16 +41,17 @@
                         {% for order in allOrders %}
                             {% if order.status != 'done' %}
                                 <tr>
+                                    <td>{{ order.ticket_num }}</td>
                                     <td>{{ order.order_num }}</td>
                                     <td>{{ order.kitchen.name }}</td>
                                     <td>
-                                        <span class="time_created" data-timeInSeconds="{{ order.created_at.timestamp }}" ">{{ order.created_at }}</span>
+                                        <span class="time_created" data-timeinseconds="{{ order.created_at.timestamp }}" ">{{ order.created_at }}</span>
                                     </td>
                                     <td>
                                         <span class="time_elapsed"></span>
                                     </td>
                                     <td>
-                                        <a href="/update_order_status/{{ order.id }}" class="button statBtn">{{ order.status }}</a>
+                                        <a href="{% url 'klaxonKitchen:update_order_status' order.id %}" class="button statBtn">{{ order.status }}</a>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -76,24 +67,24 @@
                         {% endfor %}
                     </ul>
                 {% endif %}
-                <form action="/add_order" method="POST">
+                <form action="{% url 'klaxonKitchen:add_order' %}" method="POST">
                     {% csrf_token %}
-                    <!-- <input type="text" name="orderNum" id="orderNum" placeholder="Order Number"> -->
-                    <select name="kitchen_id" id="kitchenOption" value="aaa">
-                        <option disabled="disabled" selected="selected" hidden="hidden" value="None">Pick a Kitchen</option>
-                        {% for kitchen in allKitchens %}
-                            <option value="{{ kitchen.id }}">{{ kitchen.name }}</option>
-                        {% endfor %}
-                    </select>
-                    <textarea name="notes" class="u-full-width" id="orderNotes" cols="30" rows="10" placeholder="Notes"></textarea>
-                    <button class="button-chief u-full-width orderFormBtn disabled" disabled>Create</button>
-                </form>
-                <hr/>
-                <form class="myFilter-col">
-                    {{ myFilter.form }}
-                    <button>Search</button>
-                </form>
+                    <input type="text" name="orderNum" id="orderNum" placeholder="Order Number">
+                        <select name="kitchen_id" id="kitchenOption" value="aaa">
+                            <option disabled="disabled" selected="selected" hidden="hidden" value="None">Pick a Kitchen</option>
+                            {% for kitchen in allKitchens %}
+                                <option value="{{ kitchen.id }}">{{ kitchen.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <textarea name="notes" class="u-full-width" id="orderNotes" cols="30" rows="10" placeholder="Notes"></textarea>
+                        <button class="button-chief u-full-width orderFormBtn disabled" disabled>Create</button>
+                    </form>
+                    <hr/>
+                    <form class="myFilter-col">
+                        {{ myFilter.form }}
+                        <button>Search</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-{% endblock content %}
+    {% endblock content %}

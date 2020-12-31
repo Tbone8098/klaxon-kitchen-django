@@ -32,6 +32,7 @@ $(document).ready(function () {
 
         var now = new Date();
         var duration = now - timeCreated;
+
         var seconds = Math.floor((duration / 1000) % 60);
         var minutes = Math.floor((duration / (1000 * 60)) % 60);
         var hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
@@ -55,7 +56,3 @@ $(document).ready(function () {
         }
     }
 });
-
-// function delete_Order(){
-//     csrfToken = $('input[name ="csrfmiddlewaretoken"]')[0].value
-// }

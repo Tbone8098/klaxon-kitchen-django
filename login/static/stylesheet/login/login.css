@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    /* outline: 1px dotted green; */
+}
+
+.header {
+    text-align: center;
+}
+
+.content {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+}
+
+fieldset {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 500px;
+    border: 0;
+}
