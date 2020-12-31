@@ -13,7 +13,6 @@ $(document).ready(function () {
         }
     }, 1000);
 
-    // console.log($("#kitchenOption").val());
     $("#kitchenOption").change(function () {
         $(".orderFormBtn").removeClass("disabled");
         $(".orderFormBtn").removeAttr("disabled");

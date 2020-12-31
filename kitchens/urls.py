@@ -8,6 +8,7 @@ urlpatterns = [
     path('add_kitchen', views.add_kitchen, name="add_kitchen"),
     path('add_order', views.add_order, name="add_order"),
     path('kitchen/<int:kitchen_id>', views.kitchenDashboard, name="kitchen"),
+    path('kitchen/delete/<int:kitchen_id>', views.kitchenDelete, name="kitchen_delete"),
     path('update_order_status/<int:order_id>', views.update_order_status, name="update_order_status"),
     path('all_orders', views.all_orders, name="all_orders"),
     path('display_screen', views.display_screen, name="display_screen"),

@@ -32,7 +32,7 @@ def add_kitchen(request):
 
         kitchen = Kitchen.objects.create(
             name=request.POST['kitchen_name'],
-            designation_id=request.POST['designationId']
+            designation_id=request.POST['designationId'].upper()
             )
     return redirect('klaxonKitchen:home')
 
@@ -153,3 +153,8 @@ def reset_counter_all(request):
 
 def settings(request):
     return render(request, 'settings.html')
+
+def kitchenDelete(request, kitchen_id):
+    kitchen = Kitchen.objects.get(id=kitchen_id)
+    kitchen.delete()
+    return redirect('klaxonKitchen:home')

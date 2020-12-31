@@ -60,13 +60,6 @@
                 </table>
             </div>
             <div class="three columns dflex-col center right-col">
-                {% if messages %}
-                    <ul>
-                        {% for message in messages %}
-                            <li>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
                 <form action="{% url 'klaxonKitchen:add_order' %}" method="POST">
                     {% csrf_token %}
                     <input type="text" name="orderNum" id="orderNum" placeholder="Order Number">
@@ -79,6 +72,15 @@
                         <textarea name="notes" class="u-full-width" id="orderNotes" cols="30" rows="10" placeholder="Notes"></textarea>
                         <button class="button-chief u-full-width orderFormBtn disabled" disabled>Create</button>
                     </form>
+                    {% if messages %}
+                        <ul>
+                            {% for message in messages %}
+                                <li>
+                                    <span class="errorMessage">{{ message }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                     <hr/>
                     <form class="myFilter-col">
                         {{ myFilter.form }}

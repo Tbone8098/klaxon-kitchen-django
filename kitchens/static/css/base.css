@@ -120,6 +120,14 @@ hr {
     box-shadow: 0 0 0 ;
 }
 
+.errorMessage{
+    padding: 5px;
+    background: #ae0f0a;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: white;
+}
+
 
 /* ******************** utils */
 /* flex */
@@ -148,6 +156,10 @@ hr {
 }
 .center {
     align-items: center;
+}
+
+.row {
+    width: 100%;
 }
 
 /* margins */
