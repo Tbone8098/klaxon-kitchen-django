@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!-- saved from url=(0082)http://localhost:8000/?order_num=&notes=&status=&kitchen=5&created_at=&updated_at= -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./Klaxon Kitchen_files/skeleton.min.css" integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" crossorigin="anonymous">
+        <link rel="stylesheet" href="./Klaxon Kitchen_files/base.css">
+        <script src="./Klaxon Kitchen_files/jquery-3.5.1.min.js.download" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src="./Klaxon Kitchen_files/script.js.download"></script>
+        <title>Klaxon Kitchen</title>
+    </head>
+    <body class="vsc-initialized">
+        
+<div class="navbar">
+    <a href="http://localhost:8000/"><img src="./Klaxon Kitchen_files/Klaxon-Logo-Web-White.png" alt="Klaxon logo"></a>
+    <h1>Klaxon Kitchen</h1>
+    <button class="button-chief">Logout</button>
+</div>
+
+
+        
+    <div class="body-content">
+        <div class="row">
+            <div class="three columns dflex-col center left-col">
+                <form action="http://localhost:8000/add_kitchen" method="POST">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="h8leQYYYE9xQ3mxDFV2VGIEkxHYOigfKX9kO3bXi5jBfNTskVNfEP99q7CQVK2jG">
+                    
+                    <input type="text" class="u-full-width" name="kitchen_name" id="kitchen_name" placeholder="Kitchen Name">
+                    <input type="text" name="designationId" id="designationId" placeholder="Designation Id">
+                    <button class="button-chief u-full-width">Create</button>
+                </form>
+
+                <hr>
+                <ul>
+                    
+                        <li>
+                            <a href="http://localhost:8000/kitchen/3" class="button">Tyler's Kitchen</a>
+                        </li>
+                    
+                        <li>
+                            <a href="http://localhost:8000/kitchen/4" class="button">Kendal's Kitchen</a>
+                        </li>
+                    
+                        <li>
+                            <a href="http://localhost:8000/kitchen/5" class="button">Teki's Kitchen</a>
+                        </li>
+                    
+                        <li>
+                            <a href="http://localhost:8000/kitchen/6" class="button">Timmy's Kitchen</a>
+                        </li>
+                    
+                        <li>
+                            <a href="http://localhost:8000/kitchen/7" class="button">Kim's Kitchen</a>
+                        </li>
+                    
+                </ul>
+                <form class="myFilter">
+                    <label for="id_order_num">Order num:</label><input type="text" name="order_num" id="id_order_num" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;">
+<label for="id_notes">Notes:</label><input type="text" name="notes" id="id_notes">
+<label for="id_status">Status:</label><input type="text" name="status" id="id_status">
+<label for="id_kitchen">Kitchen:</label><select name="kitchen" id="id_kitchen">
+  <option value="">---------</option>
+
+  <option value="3">Kitchen object (3)</option>
+
+  <option value="4">Kitchen object (4)</option>
+
+  <option value="5" selected="">Kitchen object (5)</option>
+
+  <option value="6">Kitchen object (6)</option>
+
+  <option value="7">Kitchen object (7)</option>
+
+</select>
+<label for="id_created_at">Created at:</label><input type="text" name="created_at" value="" id="id_created_at">
+<label for="id_updated_at">Updated at:</label><input type="text" name="updated_at" value="" id="id_updated_at">
+                    <button>Search</button>
+                </form>
+            </div>
+            <div class="six columns dflex-col center">
+                <ul class="menuBar">
+                    <li>
+                        <a href="http://localhost:8000/display_screen" class="button yellow" target="_blank">Launch Display</a>
+                    </li>
+                    <li>
+                        <a href="http://localhost:8000/all_orders" class="button">All Orders</a>
+                    </li>
+                </ul>
+                <h3>Active Orders</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order No</th>
+                            <th>Kitchen</th>
+                            <th>Created</th>
+                            <th>Time Elapsed</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                            
+                                <tr>
+                                    <td>TK-20201223-9</td>
+                                    <td>Teki's Kitchen</td>
+                                    <td>
+                                        <span class="time_created" data-timeinseconds="1608774840.674953" "="">Dec. 24, 2020, 1:54 a.m.</span>
+                                    </td>
+                                    <td>
+                                        <span class="time_elapsed">1:28:19</span>
+                                    </td>
+                                    <td>
+                                        <a href="http://localhost:8000/update_order_status/37" class="button statBtn stat-in-progress">in progress</a>
+                                    </td>
+                                </tr>
+                            
+                        
+                            
+                                <tr>
+                                    <td>TK-20201223-8</td>
+                                    <td>Teki's Kitchen</td>
+                                    <td>
+                                        <span class="time_created" data-timeinseconds="1608774833.833344" "="">Dec. 24, 2020, 1:53 a.m.</span>
+                                    </td>
+                                    <td>
+                                        <span class="time_elapsed">1:28:26</span>
+                                    </td>
+                                    <td>
+                                        <a href="http://localhost:8000/update_order_status/34" class="button statBtn stat-in-progress">in progress</a>
+                                    </td>
+                                </tr>
+                            
+                        
+                            
+                                <tr>
+                                    <td>TK-20201223-7</td>
+                                    <td>Teki's Kitchen</td>
+                                    <td>
+                                        <span class="time_created" data-timeinseconds="1608774738.432747" "="">Dec. 24, 2020, 1:52 a.m.</span>
+                                    </td>
+                                    <td>
+                                        <span class="time_elapsed">1:30:1</span>
+                                    </td>
+                                    <td>
+                                        <a href="http://localhost:8000/update_order_status/31" class="button statBtn stat-ready">ready</a>
+                                    </td>
+                                </tr>
+                            
+                        
+                            
+                                <tr>
+                                    <td>TK-20201223-6</td>
+                                    <td>Teki's Kitchen</td>
+                                    <td>
+                                        <span class="time_created" data-timeinseconds="1608774728.921005" "="">Dec. 24, 2020, 1:52 a.m.</span>
+                                    </td>
+                                    <td>
+                                        <span class="time_elapsed">1:30:11</span>
+                                    </td>
+                                    <td>
+                                        <a href="http://localhost:8000/update_order_status/28" class="button statBtn stat-ready">ready</a>
+                                    </td>
+                                </tr>
+                            
+                        
+                            
+                                <tr>
+                                    <td>TK-20201223-5</td>
+                                    <td>Teki's Kitchen</td>
+                                    <td>
+                                        <span class="time_created" data-timeinseconds="1608774624.81121" "="">Dec. 24, 2020, 1:50 a.m.</span>
+                                    </td>
+                                    <td>
+                                        <span class="time_elapsed">1:31:55</span>
+                                    </td>
+                                    <td>
+                                        <a href="http://localhost:8000/update_order_status/27" class="button statBtn stat-ready">ready</a>
+                                    </td>
+                                </tr>
+                            
+                        
+                            
+                                <tr>
+                                    <td>TK-20201223-4</td>
+                                    <td>Teki's Kitchen</td>
+                                    <td>
+                                        <span class="time_created" data-timeinseconds="1608774622.164499" "="">Dec. 24, 2020, 1:50 a.m.</span>
+                                    </td>
+                                    <td>
+                                        <span class="time_elapsed">1:31:57</span>
+                                    </td>
+                                    <td>
+                                        <a href="http://localhost:8000/update_order_status/26" class="button statBtn stat-ready">ready</a>
+                                    </td>
+                                </tr>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="three columns dflex-col center right-col">
+                
+                <form action="http://localhost:8000/add_order" method="POST">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="h8leQYYYE9xQ3mxDFV2VGIEkxHYOigfKX9kO3bXi5jBfNTskVNfEP99q7CQVK2jG">
+                    <!-- <input type="text" name="orderNum" id="orderNum" placeholder="Order Number"> -->
+                    <select name="kitchen_id" id="kitchenOption" value="aaa">
+                        <option disabled="disabled" selected="selected" hidden="hidden" value="None">Pick a Kitchen</option>
+                        
+                            <option value="3">Tyler's Kitchen</option>
+                        
+                            <option value="4">Kendal's Kitchen</option>
+                        
+                            <option value="5">Teki's Kitchen</option>
+                        
+                            <option value="6">Timmy's Kitchen</option>
+                        
+                            <option value="7">Kim's Kitchen</option>
+                        
+                    </select>
+                    <textarea name="notes" class="u-full-width" id="orderNotes" cols="30" rows="10" placeholder="Notes"></textarea>
+                    <button class="button-chief u-full-width orderFormBtn disabled" disabled="">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+
+</body></html>

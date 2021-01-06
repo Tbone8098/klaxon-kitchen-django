@@ -1,0 +1,129 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+hr {
+    height: 1px;
+    width: 100%;
+}
+
+.navbar {
+    padding: 0.5em 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: #f8b232;
+    box-shadow: 2px 2px 5px black;
+}
+
+.navbar img {
+    width: 100px;
+}
+
+.menuBar {
+    display: flex;
+}
+
+.menuBar, ul {
+    list-style-type: none;
+}
+
+.menuBar, li {
+    margin-left: 0.5em;
+}
+
+.body-content {
+    padding: 0 1em;
+    margin-top: 2em;
+}
+
+.displayBox {
+    padding: 0 2em;
+    min-height: 75vh;
+}
+
+.displayBox h3{
+    margin-top: 1em;
+    text-align: center;
+}
+
+/* .myFilter {
+    display: flex;
+    flex-flow: row wrap;
+} */
+
+.button-chief{
+    background: #ae0f0a;
+    color: white;
+    border: 0;
+}
+
+
+.button:hover {
+    background: #222222;
+    color: white;
+}
+
+.button-chief:hover {
+    background: #39a634;
+    color: black;
+    box-shadow: 2px 2px 4px black;
+}
+
+.stat-in-progress {
+    background: #f8b232;
+    color: black;
+}
+
+.stat-ready {
+    background: #39a634;
+    color: black;
+}
+
+.disabled {
+    background: rgba(202, 202, 202, 0.719);
+    
+}
+
+.disabled:hover{
+    background: rgba(202, 202, 202, 0.719);
+    color: white;
+    box-shadow: 0 0 0 ;
+}
+
+
+/* ******************** utils */
+/* flex */
+.dflex {
+    display: flex;
+}
+
+.dflex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.dflex, .center {
+    justify-content: center;
+    align-items: center;
+}
+
+/* colors - background */
+.yellow{
+    background: #f8b232;
+}
+
+.red{
+    background: #ae0f0a;
+}
+
+.green{
+    background: #39a634;
+}
+
+.white{
+    background: white;
+}
