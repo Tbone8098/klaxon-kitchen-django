@@ -3,7 +3,7 @@
     <div class="body-content">
         <div class="row header dflex justify-between center">
             <h1 class="dflex center">{{ kitchen.name }}</h1>
-            <a href="{% url 'klaxonKitchen:kitchen_delete' kitchen.id %}" class="button button-chief text-white red">Delete Kitchen</a>
+            <a href="{% url 'klaxonKitchen:kitchen_delete_confirm' kitchen.id %}" class="button button-chief text-white red">Delete Kitchen</a>
         </div>
         <div class="row">
             <table class="u-full-width displayTables">

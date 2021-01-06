@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="body-content">
-        <div class="row">
-            <div class="three columns dflex-col center left-col">
+        <div class="row dflex justify-evenly">
+            <div class="two columns dflex-col center left-col">
                 <h3>All Kitchens</h3>
                 <ul>
                     {% for kitchen in allKitchens %}
@@ -22,7 +22,7 @@
                         <a href="{% url 'klaxonKitchen:all_orders' %}" class="button">All Orders</a>
                     </li>
                     <li>
-                        <a href="{% url 'klaxonKitchen:all_orders' %}" class="button">Reset Counters</a>
+                        <a href="{% url 'klaxonKitchen:reset_counters' %}" class="button">Reset Counters</a>
                     </li>
                 </ul>
                 <h3>Active Orders</h3>
@@ -41,7 +41,10 @@
                         {% for order in allOrders %}
                             {% if order.status != 'done' %}
                                 <tr>
-                                    <td>{{ order.ticket_num }}</td>
+                                    <td>
+                                        <a href="{% url 'klaxonKitchen:order_details' order.id %}">
+                                            {{ order.ticket_num }}</a>
+                                    </td>
                                     <td>{{ order.order_num }}</td>
                                     <td>{{ order.kitchen.name }}</td>
                                     <td>

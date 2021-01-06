@@ -5,8 +5,8 @@
             <h1>All Orders</h1>
             <div class="btns">
 
-                <a class="button ml-3" href="export_orders">Export Orders</a>
-                <a class="button ml-3" href="export_kitchens">Export Kitchens</a>
+                <a class="button ml-3" href="{% url 'klaxonKitchen:export_orders' %}">Export Orders</a>
+                <a class="button ml-3" href="{% url 'klaxonKitchen:export_kitchens' %}">Export Kitchens</a>
             </div>
         </div>
         <hr/>
@@ -38,12 +38,12 @@
                                 <span class="time_elapsed"></span>
                             </td>
                             <td>
-                                <a href="/update_order_status/{{ order.id }}" class="button statBtn">{{ order.status }}</a>
+                                <a href="{% url 'klaxonKitchen:update_order_status' order.id %}" class="button statBtn">{{ order.status }}</a>
                             </td>
                             <td>
-                                <a href="#">Edit</a>
+                                <a href="{% url 'klaxonKitchen:order_details' order.id %}">Edit</a>
                                 |
-                                <a href="/delete_order/{{ order.id }}">Delete</a>
+                                <a href="{% url 'klaxonKitchen:delete_orders_confirm' order.id %}">Delete</a>
                             </td>
                         </tr>
                     {% endfor %}

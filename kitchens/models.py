@@ -18,7 +18,9 @@ class OrderManager(models.Manager):
         errors = {}
         if len(postData['orderNum']) < 1:
             errors['orderNumLenError'] = "You must enter an order number"
-        
+        if Kitchen.objects.filter(id=postData['kitchen_id']) and Order.objects.filter(order_num=postData['orderNum']):
+            errors['orderNumExists'] = "The order number entered already exists"
+
         return errors
 
 
@@ -29,13 +31,16 @@ class Kitchen(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = KitchenManager()
+    def __str__ (self):
+        return self.name
+
 
 class Order(models.Model):
     ticket_num = models.CharField(max_length=255, default="0000")
     order_num = models.CharField(max_length=255)
     notes = models.TextField()
     status = models.CharField(max_length=255)
-    kitchen = models.ForeignKey(Kitchen, related_name="orders", on_delete=models.CASCADE)
+    kitchen = models.ForeignKey(Kitchen, related_name="orders", on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = OrderManager()

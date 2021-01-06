@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="body-content dflex-col center">
+
+        <h1>Order Details for
+            {{ currentOrder.order_num }}</h1>
+        <a class="button button-chief" href="{% url 'klaxonKitchen:delete_orders_confirm' currentOrder.id %}">Delete</a>
+        <form action="{% url 'klaxonKitchen:order_update' currentOrder.id %}" method="POST">
+            {% csrf_token %}
+            <p>
+                <strong>Ticket Number:
+                </strong>
+                {{ currentOrder.ticket_num }}
+            </p>
+            <label for="orderNum">Order Number:</label>
+            <input type="text" name="orderNum" id="orderNum" value="{{ currentOrder.order_num }}"/>
+            <label for="kitchen">Kitchen:</label>
+            <select name="kitchen" id="kitchen">
+                <option value="{{ currentOrder.kitchen.id }}">{{ currentOrder.kitchen }}</option>
+                {% for kitchen in allKitchens %}
+                    {% if kitchen != currentOrder.kitchen %}
+                        <option value="{{ kitchen.id }}">{{ kitchen }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <label for="notes">Notes:</label>
+            <textarea name="notes" id="notes" cols="30" rows="10">{{ currentOrder.notes }}</textarea>
+            <br>
+                <button>Change</button>
+            </form>
+        </div>
+    {% endblock %}
